@@ -1,26 +1,32 @@
-// make default 16x16 grid
-// add mouseover function to change color
-// add initial call function for first load
-// add reset button with prompt to change grid size
+// add if statements in reset for prompt input handling
 
 const container = document.getElementById('container');
 
-const gridGen = (rows, columns) => {
-    container.style.setProperty('--grid-columns', columns);
-    container.style.setProperty('--grid-rows', rows);
-    for (c = 0; c < (rows * columns); c++) {
+const gridGen = (rc) => {
+    container.style.setProperty('--grid-columns', rc);
+    container.style.setProperty('--grid-rows', rc);
+    for (c = 0; c < rc * rc; c++) {
        let cell = document.createElement('div');
+       cell.addEventListener('mouseover', (e) => {
+            e.target.style.backgroundColor = 'black';
+       });
        container.appendChild(cell).className = 'grid-cells'
     };
-};
+}
 
 const reset = () => {
-    let cell = document.getElementsByClassName('grid-cells');
-    
-};
+    const cell = [ ...document.getElementsByClassName('grid-cells') ];
+    let childRmv = (item) => {
+        container.removeChild(item);
+    };
+    cell.forEach(childRmv);    
+    const gridSize = prompt('How much rows/columns would you like to have?', 30);
+    // put error handling here!
+    gridGen(gridSize);
+}
 
 const init = () => {
-    gridGen(16, 16);
+    gridGen(30);
 };
 
 init();
