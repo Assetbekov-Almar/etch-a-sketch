@@ -1,5 +1,3 @@
-// add if statements in reset for prompt input handling
-
 const container = document.getElementById('container');
 
 const gridGen = (rc) => {
@@ -19,11 +17,16 @@ const reset = () => {
     let childRmv = (item) => {
         container.removeChild(item);
     };
-    cell.forEach(childRmv);    
-    const gridSize = prompt('How much rows/columns would you like to have?', 30);
-    // put error handling here!
-    gridGen(gridSize);
-}
+    cell.forEach(childRmv); 
+    let sizePrompt = prompt('How much rows/columns would you like to have?', 30);   
+    let numCheck = isNaN(sizePrompt);
+    if (sizePrompt === null || sizePrompt === "" || numCheck === true) {
+        alert('Please insert a number after resetting. for now, we\'ll default to 30');
+        gridGen(30);
+    } else {
+        gridGen(sizePrompt);
+    };
+};
 
 const init = () => {
     gridGen(30);
